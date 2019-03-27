@@ -1,4 +1,0 @@
-    Número Habitació      Tipus Habitació         Número Llits          Tipus Llits      Estat Habitació
-                 102                Doble                    1                Doble               Activa
-                 103               Simple                    1           Individual            No activa
-                 101               Simple                    1           Individual               Activa
