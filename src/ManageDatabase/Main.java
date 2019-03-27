@@ -39,7 +39,7 @@ public class Main extends javax.swing.JFrame {
         this.setTitle("Univeylandia Database Management");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
-        this.setExtendedState(this.MAXIMIZED_BOTH);
+        //this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
     /**
@@ -52,25 +52,30 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        sqlStatement = new javax.swing.JTextArea();
+        selectStatement = new javax.swing.JTextArea();
         connectionStatus = new javax.swing.JLabel();
-        executeStatement = new javax.swing.JButton();
+        executeSelect = new javax.swing.JButton();
         clearWindow = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        executeSql = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        sqlStatement = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        sqlStatement.setColumns(20);
-        sqlStatement.setRows(5);
-        jScrollPane1.setViewportView(sqlStatement);
+        selectStatement.setColumns(20);
+        selectStatement.setRows(5);
+        jScrollPane1.setViewportView(selectStatement);
 
         connectionStatus.setText("No connectat");
 
-        executeStatement.setText("Executar");
-        executeStatement.addActionListener(new java.awt.event.ActionListener() {
+        executeSelect.setText("Executar SELECT");
+        executeSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                executeStatementActionPerformed(evt);
+                executeSelectActionPerformed(evt);
             }
         });
 
@@ -92,47 +97,85 @@ public class Main extends javax.swing.JFrame {
         tabla.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabla);
 
+        executeSql.setText("Executar SQL");
+        executeSql.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                executeSqlActionPerformed(evt);
+            }
+        });
+
+        sqlStatement.setColumns(20);
+        sqlStatement.setRows(5);
+        jScrollPane3.setViewportView(sqlStatement);
+
+        jLabel1.setText("Sentències SELECT");
+
+        jLabel2.setText("Sentències SQL");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(connectionStatus)
-                .addGap(48, 48, 48))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(244, 244, 244)
-                        .addComponent(executeStatement, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(86, 86, 86)
-                        .addComponent(clearWindow, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel1)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addGap(240, 240, 240)
+                                .addComponent(connectionStatus)
+                                .addGap(137, 137, 137))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(201, 201, 201)
+                                .addComponent(executeSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(clearWindow, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(executeSql, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(connectionStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(executeStatement, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(clearWindow)))
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(connectionStatus)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(executeSelect)
+                    .addComponent(clearWindow)
+                    .addComponent(executeSql))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void executeStatementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_executeStatementActionPerformed
+    private void executeSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_executeSelectActionPerformed
         // TODO add your handling code here:
         try {
 
@@ -143,55 +186,88 @@ public class Main extends javax.swing.JFrame {
 
             connectionStatus.setText("Connectat com: " + DB_USER);
 
-            String query = sqlStatement.getText();
+            String query = selectStatement.getText();
 
             statement = connection.createStatement();
 
-            if (query.toLowerCase().contains("select")) {
-                resultSet = statement.executeQuery(query);
+            //if (query.toLowerCase().contains("select")) {
+            resultSet = statement.executeQuery(query);
 
-                // obtenir metadades del resultat de la consulta
-                ResultSetMetaData md = resultSet.getMetaData();
+            // obtenir metadades del resultat de la consulta
+            ResultSetMetaData md = resultSet.getMetaData();
 
-                // comptar el numero de columnes del resultat
-                int columnCount = md.getColumnCount();
+            // comptar el numero de columnes del resultat
+            int columnCount = md.getColumnCount();
 
-                // emmagatzemar el nom de les columnes en un ArrayList
-                for (int i = 1; i <= columnCount; i++) {
-                    //System.out.print(md.getColumnName(i)+"\t");
-                    columnNames.add(md.getColumnName(i));
+            // emmagatzemar el nom de les columnes en un ArrayList
+            for (int i = 1; i <= columnCount; i++) {
+                //System.out.print(md.getColumnName(i)+"\t");
+                columnNames.add(md.getColumnName(i));
+            }
+
+            // Generar taula
+            DefaultTableModel model = new DefaultTableModel();
+            tabla.setModel(model);
+
+            for (int i = 0; i < columnNames.size(); i++) {
+                model.addColumn(columnNames.get(i));
+            }
+
+            // mostrar les dades en la taula despres d'haver-les guardat en un Objecte[]
+            while (resultSet.next()) {
+                Object[] row = new Object[columnCount];
+
+                for (int i = 0; i < columnCount; ++i) {
+                    //row.add(resultSet.getObject(i));
+                    row[i] = resultSet.getObject(i + 1);
                 }
+                //data.add(row);
+                model.addRow(row);
+            }
 
-                // Generar taula
-                DefaultTableModel model = new DefaultTableModel();
-                tabla.setModel(model);
+            resultSet.close();
 
-                for (int i = 0; i < columnNames.size(); i++) {
-                    model.addColumn(columnNames.get(i));
-                }
-
-                // mostrar les dades en la taula despres d'haver-les guardat en un Objecte[]
-                while (resultSet.next()) {
-                    Object[] row = new Object[columnCount];
-
-                    for (int i = 0; i < columnCount; ++i) {
-                        //row.add(resultSet.getObject(i));
-                        row[i] = resultSet.getObject(i + 1);
-                    }
-                    //data.add(row);
-                    model.addRow(row);
-                }
-                
-                resultSet.close();
-
-                /*// DEBUG - imprimir els ArrayList
+            /*// DEBUG - imprimir els ArrayList
             for (int i = 0; i < data.size(); i++) {
                 System.out.print(columnNames.get(i));
                 System.out.println(data.get(i));
             }*/
-            } else {
+ /*} else {
                 statement.executeUpdate(query);
+            }*/
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex);
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(this, ex);
             }
+        }
+    }//GEN-LAST:event_executeSelectActionPerformed
+
+    private void clearWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearWindowActionPerformed
+        // TODO add your handling code here:
+        selectStatement.setText(null);
+        sqlStatement.setText(null);
+    }//GEN-LAST:event_clearWindowActionPerformed
+
+    private void executeSqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_executeSqlActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+
+            connectionStatus.setText("Connectat com: " + DB_USER);
+
+            String query = sqlStatement.getText();
+
+            statement = connection.createStatement();
+
+            statement.executeUpdate(query);
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -205,12 +281,7 @@ public class Main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, ex);
             }
         }
-    }//GEN-LAST:event_executeStatementActionPerformed
-
-    private void clearWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearWindowActionPerformed
-        // TODO add your handling code here:
-        sqlStatement.setText(null);
-    }//GEN-LAST:event_clearWindowActionPerformed
+    }//GEN-LAST:event_executeSqlActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,9 +322,14 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearWindow;
     public javax.swing.JLabel connectionStatus;
-    private javax.swing.JButton executeStatement;
+    private javax.swing.JButton executeSelect;
+    private javax.swing.JButton executeSql;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea selectStatement;
     private javax.swing.JTextArea sqlStatement;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
