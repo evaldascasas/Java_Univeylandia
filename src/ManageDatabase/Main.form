@@ -124,7 +124,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="executeSelect">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Executar SELECT"/>
+        <Property name="text" type="java.lang.String" value="Executar SQL 1"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="executeSelectActionPerformed"/>
@@ -162,7 +162,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="executeSql">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Executar SQL"/>
+        <Property name="text" type="java.lang.String" value="Executar SQL 2"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="executeSqlActionPerformed"/>
@@ -185,12 +185,12 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sent&#xe8;ncies SELECT"/>
+        <Property name="text" type="java.lang.String" value="Sent&#xe8;ncies SQL 1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sent&#xe8;ncies SQL"/>
+        <Property name="text" type="java.lang.String" value="Sent&#xe8;ncies SQL 2"/>
       </Properties>
     </Component>
   </SubComponents>

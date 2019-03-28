@@ -72,7 +72,7 @@ public class Main extends javax.swing.JFrame {
 
         connectionStatus.setText("No connectat");
 
-        executeSelect.setText("Executar SELECT");
+        executeSelect.setText("Executar SQL 1");
         executeSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 executeSelectActionPerformed(evt);
@@ -97,7 +97,7 @@ public class Main extends javax.swing.JFrame {
         tabla.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabla);
 
-        executeSql.setText("Executar SQL");
+        executeSql.setText("Executar SQL 2");
         executeSql.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 executeSqlActionPerformed(evt);
@@ -108,9 +108,9 @@ public class Main extends javax.swing.JFrame {
         sqlStatement.setRows(5);
         jScrollPane3.setViewportView(sqlStatement);
 
-        jLabel1.setText("Sentències SELECT");
+        jLabel1.setText("Sentències SQL 1");
 
-        jLabel2.setText("Sentències SQL");
+        jLabel2.setText("Sentències SQL 2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,51 +190,51 @@ public class Main extends javax.swing.JFrame {
 
             statement = connection.createStatement();
 
-            //if (query.toLowerCase().contains("select")) {
-            resultSet = statement.executeQuery(query);
+            if (query.toLowerCase().startsWith("select")) {
+                resultSet = statement.executeQuery(query);
 
-            // obtenir metadades del resultat de la consulta
-            ResultSetMetaData md = resultSet.getMetaData();
+                // obtenir metadades del resultat de la consulta
+                ResultSetMetaData md = resultSet.getMetaData();
 
-            // comptar el numero de columnes del resultat
-            int columnCount = md.getColumnCount();
+                // comptar el numero de columnes del resultat
+                int columnCount = md.getColumnCount();
 
-            // emmagatzemar el nom de les columnes en un ArrayList
-            for (int i = 1; i <= columnCount; i++) {
-                //System.out.print(md.getColumnName(i)+"\t");
-                columnNames.add(md.getColumnName(i));
-            }
-
-            // Generar taula
-            DefaultTableModel model = new DefaultTableModel();
-            tabla.setModel(model);
-
-            for (int i = 0; i < columnNames.size(); i++) {
-                model.addColumn(columnNames.get(i));
-            }
-
-            // mostrar les dades en la taula despres d'haver-les guardat en un Objecte[]
-            while (resultSet.next()) {
-                Object[] row = new Object[columnCount];
-
-                for (int i = 0; i < columnCount; ++i) {
-                    //row.add(resultSet.getObject(i));
-                    row[i] = resultSet.getObject(i + 1);
+                // emmagatzemar el nom de les columnes en un ArrayList
+                for (int i = 1; i <= columnCount; i++) {
+                    //System.out.print(md.getColumnName(i)+"\t");
+                    columnNames.add(md.getColumnName(i));
                 }
-                //data.add(row);
-                model.addRow(row);
-            }
 
-            resultSet.close();
+                // Generar taula
+                DefaultTableModel model = new DefaultTableModel();
+                tabla.setModel(model);
 
-            /*// DEBUG - imprimir els ArrayList
+                for (int i = 0; i < columnNames.size(); i++) {
+                    model.addColumn(columnNames.get(i));
+                }
+
+                // mostrar les dades en la taula despres d'haver-les guardat en un Objecte[]
+                while (resultSet.next()) {
+                    Object[] row = new Object[columnCount];
+
+                    for (int i = 0; i < columnCount; ++i) {
+                        //row.add(resultSet.getObject(i));
+                        row[i] = resultSet.getObject(i + 1);
+                    }
+                    //data.add(row);
+                    model.addRow(row);
+                }
+
+                resultSet.close();
+
+                /*// DEBUG - imprimir els ArrayList
             for (int i = 0; i < data.size(); i++) {
                 System.out.print(columnNames.get(i));
                 System.out.println(data.get(i));
             }*/
- /*} else {
+            } else {
                 statement.executeUpdate(query);
-            }*/
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(this, ex);
@@ -257,7 +257,7 @@ public class Main extends javax.swing.JFrame {
 
     private void executeSqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_executeSqlActionPerformed
         // TODO add your handling code here:
-        try {
+        /*try {
 
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
 
@@ -280,7 +280,78 @@ public class Main extends javax.swing.JFrame {
                 System.out.println(ex.getMessage());
                 JOptionPane.showMessageDialog(this, ex);
             }
+        }*/
+        try {
+
+            ArrayList columnNames = new ArrayList();
+            //ArrayList data = new ArrayList();
+
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+
+            connectionStatus.setText("Connectat com: " + DB_USER);
+
+            String query = sqlStatement.getText();
+
+            statement = connection.createStatement();
+
+            if (query.toLowerCase().startsWith("select")) {
+                resultSet = statement.executeQuery(query);
+
+                // obtenir metadades del resultat de la consulta
+                ResultSetMetaData md = resultSet.getMetaData();
+
+                // comptar el numero de columnes del resultat
+                int columnCount = md.getColumnCount();
+
+                // emmagatzemar el nom de les columnes en un ArrayList
+                for (int i = 1; i <= columnCount; i++) {
+                    //System.out.print(md.getColumnName(i)+"\t");
+                    columnNames.add(md.getColumnName(i));
+                }
+
+                // Generar taula
+                DefaultTableModel model = new DefaultTableModel();
+                tabla.setModel(model);
+
+                for (int i = 0; i < columnNames.size(); i++) {
+                    model.addColumn(columnNames.get(i));
+                }
+
+                // mostrar les dades en la taula despres d'haver-les guardat en un Objecte[]
+                while (resultSet.next()) {
+                    Object[] row = new Object[columnCount];
+
+                    for (int i = 0; i < columnCount; ++i) {
+                        //row.add(resultSet.getObject(i));
+                        row[i] = resultSet.getObject(i + 1);
+                    }
+                    //data.add(row);
+                    model.addRow(row);
+                }
+
+                resultSet.close();
+
+                /*// DEBUG - imprimir els ArrayList
+            for (int i = 0; i < data.size(); i++) {
+                System.out.print(columnNames.get(i));
+                System.out.println(data.get(i));
+            }*/
+            } else {
+                statement.executeUpdate(query);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex);
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(this, ex);
+            }
         }
+
     }//GEN-LAST:event_executeSqlActionPerformed
 
     /**
