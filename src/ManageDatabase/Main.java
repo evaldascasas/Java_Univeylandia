@@ -235,6 +235,7 @@ public class Main extends javax.swing.JFrame {
             } else {
                 statement.executeUpdate(query);
             }
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(this, ex);
@@ -338,6 +339,19 @@ public class Main extends javax.swing.JFrame {
             }*/
             } else {
                 statement.executeUpdate(query);
+                if (statement.getUpdateCount() != 0) {
+                    if (query.toLowerCase().startsWith("insert")) {
+                        JOptionPane.showMessageDialog(this, "S'han insertat "+statement.getUpdateCount()+" valors.");
+                    }
+                    if (query.toLowerCase().startsWith("update")) {
+                        JOptionPane.showMessageDialog(this, "S'han actualitzat "+statement.getUpdateCount()+" valors.");
+                    }
+                    if (query.toLowerCase().startsWith("delete")) {
+                        JOptionPane.showMessageDialog(this, "S'han eliminat "+statement.getUpdateCount()+" valors.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, statement.getUpdateCount());
+                }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
